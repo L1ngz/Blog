@@ -4,13 +4,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run dev --prefix apps/web\" \"go run ./apps/api/main.go\""
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "npm run dev --prefix apps/web",
+    "dev:api": "cd apps/api && air",
+    "build": "npm run build --prefix apps/web && cd apps/api && go build -o bin/api main.go",
+    "start": "concurrently \"npm run start --prefix apps/web\" \"cd apps/api && ./bin/api\"",
+    "lint": "npm run lint --prefix apps/web",
+    "lint:fix": "npm run lint:fix --prefix apps/web"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "concurrently": "^9.2.0"
+    "concurrently": "^9.2.0",
+    "prettier": "^3.6.0",
+    "prettier-plugin-tailwindcss": "^0.6.13"
   }
 }
